@@ -12,9 +12,8 @@ import javax.inject.Singleton
 class GetUserById @Inject constructor(private val usersDataSourceImpl: UsersDataSourceImpl) {
   suspend operator fun invoke(
     currentUiState: GithubRepoUiState,
-    filter: SearchFilter,
     query: String
   ): Either<Failure, GithubRepoUiState> {
-    return usersDataSourceImpl.fetchUsers(query).map { currentUiState.copy(viewSearchResults = it) }
+    return usersDataSourceImpl.getUserById(query).map { currentUiState.copy(selectedUser = it) }
   }
 }

@@ -37,6 +37,12 @@ data class NetworkUser(
   @SerializedName("following") val following: Int,
   @SerializedName("created_at") val createdAt: String,
   @SerializedName("updated_at") val updatedAt: String
-){
-  fun toView() = ViewUser(id = id, followers = followers, publicRepos = publicRepos)
+) {
+  fun toView() = ViewUser(
+    id = id,
+    login = login,
+    avatarUrl = avatarUrl,
+    followers = followers,
+    publicRepos = publicRepos
+  )
 }

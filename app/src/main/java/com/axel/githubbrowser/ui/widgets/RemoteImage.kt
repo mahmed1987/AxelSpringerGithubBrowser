@@ -14,11 +14,12 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.painter.BrushPainter
 import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 
 @Composable
-fun RemoteImage(selectedImage: Any?) {
+fun RemoteImage(selectedImage: Any?, imageSize: ImageSize = ImageSize.Small) {
   val imageLoadingError = remember { mutableStateOf(false) }
   AsyncImage(
     model = selectedImage,
@@ -37,7 +38,15 @@ fun RemoteImage(selectedImage: Any?) {
     contentDescription = "",
     contentScale = ContentScale.FillWidth,            // crop the image if it's not a square
     modifier = Modifier
-      .size(50.dp)
+      .size(imageSize.size)
       .clip(RoundedCornerShape(8.dp))
   )
+}
+
+enum class ImageSize(val size: Dp) {
+  XXSmall(24.dp),
+  XSmall(40.dp),
+  Small(70.dp),
+  Medium(100.dp),
+  Large(120.dp)
 }

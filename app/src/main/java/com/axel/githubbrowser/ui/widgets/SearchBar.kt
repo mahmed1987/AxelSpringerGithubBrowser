@@ -23,7 +23,7 @@ import com.axel.githubbrowser.ui.styles.MediumHeadline
 fun TopAppBar() {
   CenterAlignedTopAppBar(title = {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-      MediumHeadline(text = "Search")
+      MediumHeadline(text = "Axel Springer GB")
       Box(
         modifier = Modifier
           .clip(CircleShape)

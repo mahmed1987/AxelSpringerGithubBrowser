@@ -23,7 +23,6 @@ class MainActivity : ComponentActivity() {
     setContent {
       AxelGithubBrowserTheme() {
         val appState = rememberAppState()
-        // A surface container using the 'background' color from the theme
         MainApp(appState = appState)
       }
     }

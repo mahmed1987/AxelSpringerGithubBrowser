@@ -53,6 +53,25 @@ fun PrimaryContainerCard(
   }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SecondaryCard(
+  modifier: Modifier = Modifier,
+  onClick: () -> Unit = {},
+  content: @Composable () -> Unit,
+) {
+  Card(
+    modifier = modifier,
+    onClick = onClick,
+    colors = AxelCardDefaults.secondaryCardColors(),
+    shape = RoundedCornerShape(smallUnit)
+  ) {
+    Column(modifier = Modifier.padding(smallUnit)) {
+      content()
+    }
+  }
+}
+
 private object AxelCardDefaults{
   @Composable
   fun primaryCardColors(
@@ -70,4 +89,13 @@ private object AxelCardDefaults{
     containerColor = containerColor,
     contentColor = contentColor,
   )
+  @Composable
+  fun secondaryCardColors(
+    containerColor: Color = MaterialTheme.colorScheme.secondary,
+    contentColor: Color = MaterialTheme.colorScheme.onSecondary,
+  ) = CardDefaults.cardColors(
+    containerColor = containerColor,
+    contentColor = contentColor,
+  )
+
 }
