@@ -14,28 +14,28 @@ import javax.inject.Inject
 
 @OptIn(FlowPreview::class)
 @HiltViewModel
-class SearchViewModel @Inject constructor(private val search: SearchUsers) : ViewModel() {
-  private val _uiState: MutableStateFlow<SearchUiState> = MutableStateFlow(SearchUiState())
-  val uiState: StateFlow<SearchUiState> = _uiState.asStateFlow()
+class GithubRepoViewModel @Inject constructor(private val search: SearchUsers) : ViewModel() {
+  private val _uiState: MutableStateFlow<GithubRepoUiState> = MutableStateFlow(GithubRepoUiState())
+  val uiState: StateFlow<GithubRepoUiState> = _uiState.asStateFlow()
 
-  private val _loading: MutableSharedFlow<Boolean> = MutableSharedFlow(replay = 0)
-  val loading: SharedFlow<Boolean> = _loading.asSharedFlow()
+  private val _loading: MutableStateFlow<Boolean> = MutableStateFlow(false)
+  val loading: StateFlow<Boolean> = _loading.asStateFlow()
 
-  private val _failure: MutableSharedFlow<Failure> = MutableSharedFlow(replay = 1)
-  val failure: SharedFlow<Failure> = _failure.asSharedFlow()
+  private val _failure: MutableStateFlow<Failure> = MutableStateFlow(Failure.Empty)
+  val failure: StateFlow<Failure> = _failure.asStateFlow()
 
   private val event = MutableSharedFlow<SearchIntentions>(replay = 1)
 
   init {
     viewModelScope.launch {
-      event.debounce(500L).collect {
+      event.debounce(300L).collect {
         _loading.emit(true)
-        reduce(_uiState.value, it).eitherAsync({
-          _failure.emit(it)
-          _loading.emit(false)
+        reduce(_uiState.value, it).either({
+          _failure.value = it
+          _loading.value = false
         }, { searchUiState ->
           _uiState.value = searchUiState
-          _loading.emit(false)
+          _loading.value = false
         })
       }
     }
@@ -48,11 +48,12 @@ class SearchViewModel @Inject constructor(private val search: SearchUsers) : Vie
   }
 
   private suspend fun reduce(
-    uiState: SearchUiState,
+    uiState: GithubRepoUiState,
     intention: SearchIntentions
-  ): Either<Failure, SearchUiState> {
+  ): Either<Failure, GithubRepoUiState> {
     return when (intention) {
       is SearchIntentions.SearchByName -> search(uiState, SearchFilter.Name, intention.query)
+      is SearchIntentions.GetById -> TODO()
     }
   }
 

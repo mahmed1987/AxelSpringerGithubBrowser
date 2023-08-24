@@ -9,7 +9,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SearchUsers @Inject constructor(private val usersDataSourceImpl: UsersDataSourceImpl) {
+class GetUserById @Inject constructor(private val usersDataSourceImpl: UsersDataSourceImpl) {
   suspend operator fun invoke(
     currentUiState: GithubRepoUiState,
     filter: SearchFilter,
@@ -17,11 +17,4 @@ class SearchUsers @Inject constructor(private val usersDataSourceImpl: UsersData
   ): Either<Failure, GithubRepoUiState> {
     return usersDataSourceImpl.fetchUsers(query).map { currentUiState.copy(viewSearchResults = it) }
   }
-}
-
-enum class SearchFilter {
-  Name,
-  Age,
-  Class,
-  Nationality
 }

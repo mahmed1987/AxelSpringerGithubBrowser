@@ -1,7 +1,7 @@
 package com.axel.githubbrowser.models.network
 
-import com.axel.githubbrowser.models.view.ViewUser
-import com.axel.githubbrowser.models.view.ViewUsers
+import com.axel.githubbrowser.models.view.ViewSearchResult
+import com.axel.githubbrowser.models.view.ViewSearchResults
 import com.google.gson.annotations.SerializedName
 
 data class GithubResponse(
@@ -15,7 +15,7 @@ data class GithubResponse(
 
 
 ) {
-  fun toView() = ViewUsers(totalCount = totalCount, users = items.map { it.toView() })
+  fun toView() = ViewSearchResults(totalCount = totalCount, users = items.map { it.toView() })
 }
 
 data class NetworkUserItem(
@@ -69,5 +69,5 @@ data class NetworkUserItem(
   @SerializedName("site_admin")
   val siteAdmin: Boolean
 ) {
-  fun toView() = ViewUser(name = login)
+  fun toView() = ViewSearchResult(name = login, imageUrl = avatarUrl, type = type)
 }
