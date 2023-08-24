@@ -10,5 +10,5 @@ import javax.inject.Inject
 class UsersDataSourceImpl @Inject constructor(private val apis: UsersWebServices) :
   UsersDataSource {
   override suspend fun fetchUsers(search: String) =
-    networkCall { apis.search(search) }.map { it.items.map { it.toUser() } }
+    networkCall { apis.search(search) }.map { it.toView() }
 }

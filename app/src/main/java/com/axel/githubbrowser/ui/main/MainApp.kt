@@ -6,14 +6,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.axel.githubbrowser.core.state.AppState
 import com.axel.githubbrowser.ui.styles.mediumUnit
-import com.axel.githubbrowser.ui.widgets.SearchBar
+import com.axel.githubbrowser.ui.widgets.TopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainApp(appState: AppState) {
   Scaffold(snackbarHost = { SnackbarHost(hostState = appState.snackBarHostState) },
     topBar = {
-      SearchBar()
+      TopAppBar()
     }) { padding ->
     MainNavHost(
       modifier = Modifier.padding(padding).padding(start = mediumUnit, end = mediumUnit),

@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.axel.githubbrowser.ui.styles.MediumHeadline
 
 @Composable
-fun SearchBar() {
+fun TopAppBar() {
   CenterAlignedTopAppBar(title = {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
       MediumHeadline(text = "Search")
@@ -31,6 +31,5 @@ fun SearchBar() {
     }
   },
     actions = {
-      CircularProgressIndicator()
     })
 }
