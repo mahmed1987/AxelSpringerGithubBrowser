@@ -34,11 +34,38 @@ fun PrimaryCard(
   }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun PrimaryContainerCard(
+  modifier: Modifier = Modifier,
+  onClick: () -> Unit = {},
+  content: @Composable () -> Unit,
+) {
+  Card(
+    modifier = modifier,
+    onClick = onClick,
+    colors = AxelCardDefaults.primaryContainerCardColors(),
+    shape = RoundedCornerShape(smallUnit)
+  ) {
+    Column(modifier = Modifier.padding(smallUnit)) {
+      content()
+    }
+  }
+}
+
 private object AxelCardDefaults{
   @Composable
   fun primaryCardColors(
     containerColor: Color = MaterialTheme.colorScheme.primary,
     contentColor: Color = MaterialTheme.colorScheme.onPrimary,
+  ) = CardDefaults.cardColors(
+    containerColor = containerColor,
+    contentColor = contentColor,
+  )
+  @Composable
+  fun primaryContainerCardColors(
+    containerColor: Color = MaterialTheme.colorScheme.primaryContainer,
+    contentColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
   ) = CardDefaults.cardColors(
     containerColor = containerColor,
     contentColor = contentColor,

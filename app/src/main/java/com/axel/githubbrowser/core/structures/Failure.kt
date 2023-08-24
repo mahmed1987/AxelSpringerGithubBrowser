@@ -12,6 +12,7 @@ sealed class Failure {
   object NotFound : Failure()
   object UnSupportedMediaType : Failure()
   object InternalServerError : Failure()
+  object Empty :Failure()
 
   /** * Extend this class for feature specific failures.*/
   abstract class FeatureFailure : Failure()

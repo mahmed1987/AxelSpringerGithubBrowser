@@ -1,5 +1,6 @@
 package com.axel.githubbrowser.core.state
 
+import android.util.Log
 import androidx.annotation.StringRes
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,6 +19,7 @@ object SnackbarManager {
     val messages: StateFlow<List<Message>> get() = _messages.asStateFlow()
 
     fun showMessage(@StringRes messageTextId: Int) {
+        Log.d("yo mate","it is here")
         _messages.update { currentMessages ->
             currentMessages + Message(
                 id = UUID.randomUUID().mostSignificantBits,

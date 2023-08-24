@@ -20,6 +20,10 @@ class SearchViewModel @Inject constructor(private val search: SearchUsers) : Vie
 
   private val _loading: MutableSharedFlow<Boolean> = MutableSharedFlow(replay = 0)
   val loading: SharedFlow<Boolean> = _loading.asSharedFlow()
+
+  private val _failure: MutableSharedFlow<Failure> = MutableSharedFlow(replay = 1)
+  val failure: SharedFlow<Failure> = _failure.asSharedFlow()
+
   private val event = MutableSharedFlow<SearchIntentions>(replay = 1)
 
   init {
@@ -27,6 +31,7 @@ class SearchViewModel @Inject constructor(private val search: SearchUsers) : Vie
       event.debounce(500L).collect {
         _loading.emit(true)
         reduce(_uiState.value, it).eitherAsync({
+          _failure.emit(it)
           _loading.emit(false)
         }, { searchUiState ->
           _uiState.value = searchUiState
@@ -49,5 +54,9 @@ class SearchViewModel @Inject constructor(private val search: SearchUsers) : Vie
     return when (intention) {
       is SearchIntentions.SearchByName -> search(uiState, SearchFilter.Name, intention.query)
     }
+  }
+
+  suspend fun resetError() {
+    _failure.emit(Failure.Empty)
   }
 }
