@@ -11,6 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
+import com.axel.githubbrowser.core.state.rememberAppState
+import com.axel.githubbrowser.ui.main.AxelGithubBrowserApp
 import com.axel.githubbrowser.ui.theme.AxelGithubBrowserTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,12 +22,11 @@ class MainActivity : ComponentActivity() {
     WindowCompat.setDecorFitsSystemWindows(window, false)
     setContent {
       AxelGithubBrowserTheme() {
+        
+        val appState = rememberAppState()
         // A surface container using the 'background' color from the theme
-        Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-          Column(modifier = Modifier.windowInsetsPadding(WindowInsets.statusBars)) {
-            Greeting("Android")
-          }
-        }
+        AxelGithubBrowserApp(appState = appState)
+        
       }
     }
   }
